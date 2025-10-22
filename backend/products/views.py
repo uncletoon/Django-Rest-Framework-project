@@ -3,15 +3,15 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from api.authentication import TokenAuthentication
+from api.permissions import IsStaffEditorPermission
+from api.mixins import StaffEditorPermissionMixin
 
 from .models import Product
-from .permissions import IsStaffEditorPermission
 from .serializers import ProductSerializer
 
-class ProductListCreateAPIView(generics.ListCreateAPIView):
+class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
     def perform_create(self, serializer):
         # serializer.save(user=self.request.user)
@@ -22,15 +22,14 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         serializer.save(content=content)
         
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
+class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
     
 
 
 
-class ProductUpdateAPIView(generics.UpdateAPIView):
+class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
@@ -39,11 +38,11 @@ class ProductUpdateAPIView(generics.UpdateAPIView):
     def perform_update(self, serializer):
         instance = serializer.save()
         if not instance.content:
-            instance.content = instance.title
+            instance.content = "Default for update"
 
 
 
-class ProductDestroyAPIView(generics.DestroyAPIView):
+class ProductDestroyAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
@@ -52,16 +51,6 @@ class ProductDestroyAPIView(generics.DestroyAPIView):
     def perform_destroy(self, instance):
         # instance 
         super().perform_destroy(instance)
-
-
-# class ProductListAPIView(generics.ListAPIView):
-#     '''
-#     Not gonna use this method
-#     '''
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-
-# product_list_view = ProductListAPIView.as_view()
 
 
 class ProductMixinView(
@@ -88,7 +77,7 @@ class ProductMixinView(
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content') or None
         if content is None:
-            content = "this is a single view doing cool stuff"
+            content = "this is a default content"
         serializer.save(content=content)
 
 product_mixin_view = ProductMixinView.as_view()
