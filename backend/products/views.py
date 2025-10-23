@@ -1,8 +1,4 @@
-from rest_framework import authentication, generics, mixins, permissions
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-
-from api.authentication import TokenAuthentication
+from rest_framework import generics, mixins, permissions
 from api.permissions import IsStaffEditorPermission
 from api.mixins import StaffEditorPermissionMixin
 
@@ -33,7 +29,6 @@ class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
     def perform_update(self, serializer):
         instance = serializer.save()
@@ -46,7 +41,6 @@ class ProductDestroyAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
-    permission_classes = [permissions.IsAdminUser, IsStaffEditorPermission]
 
     def perform_destroy(self, instance):
         # instance 
