@@ -8,7 +8,9 @@ except:
     print(f'{product_id} not a valid id')
 
 if product_id:
-    endpoint = f"http://localhost:8000/api/products/{product_id}/delete/" 
+    # endpoint = f"http://localhost:8000/api/products/{product_id}/delete/" 
+    endpoint = f"http://localhost:8000/api/v2/products-abc/{product_id}/" 
+
 
     get_response = requests.delete(endpoint) 
     print(get_response.status_code,get_response.status_code==204 )
