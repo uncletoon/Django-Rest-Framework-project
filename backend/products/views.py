@@ -13,8 +13,8 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAP
         # serializer.save(user=self.request.user)
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content') or None
-        if content is None:
-            content = title
+        if not content:
+            content = "Try default content"
         serializer.save(content=content)
         
 
