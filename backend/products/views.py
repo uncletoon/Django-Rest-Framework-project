@@ -1,11 +1,10 @@
-from rest_framework import generics, mixins, permissions
-from api.permissions import IsStaffEditorPermission
-from api.mixins import StaffEditorPermissionMixin
+from rest_framework import generics, mixins
+from api.mixins import (UserQuerySetMixin, StaffEditorPermissionMixin)
 
 from .models import Product
 from .serializers import ProductSerializer
 
-class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAPIView):
+class ProductListCreateAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -15,17 +14,28 @@ class ProductListCreateAPIView(StaffEditorPermissionMixin, generics.ListCreateAP
         content = serializer.validated_data.get('content') or None
         if not content:
             content = "Try default content"
-        serializer.save(content=content)
+        serializer.save(user=self.request.user, content=content)
+
+    """Best recommendation, is to put this queryset into mixins, 
+    so that it will be used oftern and easily"""
+
+    # def get_queryset(self, *args, **kwargs):
+    #     qs = super().get_queryset(*args, **kwargs)
+    #     request = self.request
+    #     user = request.user
+    #     # print(request.user)
+    #     return qs.filter(user=request.user)
+    
         
 
-class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
+class ProductDetailAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     
 
 
 
-class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
+class ProductUpdateAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'
@@ -35,9 +45,10 @@ class ProductUpdateAPIView(StaffEditorPermissionMixin, generics.UpdateAPIView):
         if not instance.content:
             instance.content = "Default for update"
 
+    
 
 
-class ProductDestroyAPIView(StaffEditorPermissionMixin, generics.DestroyAPIView):
+class ProductDestroyAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.DestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     lookup_field = 'pk'

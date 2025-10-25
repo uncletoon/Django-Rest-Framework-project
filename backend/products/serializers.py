@@ -12,6 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = [
+            # 'user',
             'url',
             'pk',
             'title',
@@ -21,7 +22,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'my_discount',
         ]
 
-    # def validate_title(self, value):
+    # def validate_title(self, value): # it moved into own file called validators.py
     #     qs = Product.objects.filter(title__iexact=value)
     #     if qs.exists:
     #         raise serializers.ValidationError(f" '{value}' title is already exist in database.")
