@@ -1,10 +1,13 @@
+from django.db.models import Q
 from rest_framework import generics, mixins
-from api.mixins import (UserQuerySetMixin, StaffEditorPermissionMixin)
+from api.mixins import (UserQuerySetMixin, StaffEditorPermissionMixin,)
 
 from .models import Product
 from .serializers import ProductSerializer
 
-class ProductListCreateAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.ListCreateAPIView):
+class ProductListCreateAPIView(
+    StaffEditorPermissionMixin, 
+    generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
@@ -16,19 +19,23 @@ class ProductListCreateAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, ge
             content = "Try default content"
         serializer.save(user=self.request.user, content=content)
 
-    """Best recommendation, is to put this queryset into mixins, 
-    so that it will be used oftern and easily"""
+    
+    def get_queryset(self): # type: ignore
+        queryset = self.queryset # same as queryset = Product.objects.all()
+        query = self.request.query_params.get('search')
 
-    # def get_queryset(self, *args, **kwargs):
-    #     qs = super().get_queryset(*args, **kwargs)
-    #     request = self.request
-    #     user = request.user
-    #     # print(request.user)
-    #     return qs.filter(user=request.user)
+        if query is not None:
+            queryset = queryset.filter( #type: ignore
+                Q(title__icontains=query) |
+                Q(content__icontains=query)
+            )
+        return queryset
+
+
     
         
 
-class ProductDetailAPIView(UserQuerySetMixin, StaffEditorPermissionMixin, generics.RetrieveAPIView):
+class ProductDetailAPIView(StaffEditorPermissionMixin, generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     

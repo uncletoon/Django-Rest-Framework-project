@@ -7,7 +7,6 @@ from rest_framework_simplejwt.views import (
     )
 
 from . import views
-# from .views import api_home
 
 
 urlpatterns = [
@@ -16,5 +15,5 @@ urlpatterns = [
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('auth/', obtain_auth_token),
     path('', views.api_home),  # localhost:8000/api/
-    # path('products/', include('products.urls'))
+    
 ]

@@ -10,7 +10,7 @@ from .models import Product
 
 def validate_title_no_hello(value):
     if "hello" in value.lower():
-        raise serializers.ValidationError(f"The title with 'hello' is not allowed.")
+        raise serializers.ValidationError(f"No 'hello' Word allowed in Title.")
     return value
 
 unique_product_title = UniqueValidator(queryset=Product.objects.all(), lookup="iexact")
