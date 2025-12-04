@@ -160,10 +160,11 @@ REST_FRAMEWORK = {
 }
 
 ALGOLIA = {
-  'APPLICATION_ID': 'U94U1V8PSW',
-  'API_KEY': 'd981a567201f79a143288806a23ab7f7', # Your Write API Key
-  'INDEX_PREFIX': 'toon'
+    "APPLICATION_ID": os.environ.get("ALGOLIA_APP_ID"),
+    "API_KEY": os.environ.get("ALGOLIA_API_KEY"),
+    # "ADMIN_API_KEY": os.environ.get("ALGOLIA_ADMIN_KEY")
 }
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
