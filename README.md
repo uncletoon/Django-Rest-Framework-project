@@ -1,94 +1,215 @@
-PRODUCT LIST SAMPLE REST API
-“My API is the first api i built and deployed, which was very enjoyable to learn from, and practices that improved my skills in REST API and Django as well.”
+<h1>PRODUCT LIST SAMPLE REST API</h1>
 
-project/
-│── cfehome/
-│── api/
-│    ├── views.py
-│    ├── urls.py
-│    ├── serializers.py
-│── requirements.txt
-│── manage.py
-│── README.md
+<p>“My API is the first api i built and deployed, which was very enjoyable to learn from, and practices that improved my skills in REST API and Django as well.”</p>
 
-Live URL
-Base URL where the API is hosted on Render. For example: https://rest-api-deploy-zotq.onrender.com/api/products/
+# 🌐 Django REST API 
 
-Features
-•	CRUD Operations: Create, Read, Update, Delete actions on resources (using POST, GET, PUT/PATCH, DELETE).
-•	Authentication & Authorization: Secure endpoints with JSON Web Tokens.
-•	Filtering & Search: Query endpoints support parameters to filter and search results (e.g., ?search=term ).
-•	Pagination: List endpoints support pagination (e.g., ?page=1&limit=10) to handle large datasets.
-•	Standardized Routing: Use consistent, noun-based endpoints (e.g. /users, /posts/{id}) with standard HTTP methods.
-•	JSON Support: All data is exchanged in JSON format.
+A lightweight and scalable **REST API built with Django and Django REST Framework**, deployed on **Render Cloud**.
+This API provides structured endpoints for CRUD operations, authentication, and data management.
 
-Tech Stack
-•	Runtime & Framework: Django Framework.
-•	Language: Python3.
-•	Database: PostgreSQL.
-•	Authentication: JWT (JSON Web Tokens), Token Authentication.
-•	Hosting/Deployment: Render (backend).
+---
+
+## 🚀 **Live API Base URL**
+
+https://rest-api-deploy-zotq.onrender.com/api/products/
 
 
-Getting Started
-Follow these steps to set up and run the project locally:
-1.	Clone the repository:
+---
 
- 	https://github.com/uncletoon/Django-Rest-Framework-project.git)
-2.	Install dependencies:
-Navigate into the project directory and run:
+# 📘 **Features**
 
- 	npm install
-3.	Set up environment:
-Copy the example environment file and create your own .env:
+* ✔️ Django REST Framework–powered endpoints
+* ✔️ JWT Authentication 
+* ✔️ Pagination, filtering & search support
+* ✔️ Fully deployed on Render
+* ✔️ Environment-based configuration
+* ✔️ Admin panel enabled
 
- 	cp .env.example .env
- 	Then, edit the .env file and fill in the required variables (see the next section).
-4.	Run the API:
-Start the development server, for example:
 
- 	npm run dev
- 	The API will be available at http://localhost:<PORT> by default.
-Environment Variables
-The project uses environment variables for configuration. Create a .env file in the root directory with variables similar to the example below[11]:
-Variable	Description
-PORT	Server port (e.g., 5000)
-DATABASE_URL	Database connection string
-JWT_SECRET	Secret key for signing JWT tokens
-API_KEY	(Optional) API key for third-party service
-These variables should match what your application code expects (as documented in .env.example).
-API Endpoints Reference
-Could you list each API endpoint with its method, path, description, parameters, and example response? For example:
-Method	Endpoint	Description	Parameters	Sample Response
-GET	/api/users	Get all users	(optional query: ?page=&limit=)	[{ "id":1, "name": "Alice" }, ...]
-GET	/api/users/:id	Get a user by ID	id (path)	{ "id":1, "name":"Alice" }
-POST	/api/users	Create a new user	name, email (JSON body)	{ "id":2, "name": "Bob" }
-PUT	/api/users/:id	Update a user by ID	id (path), fields (body)	{ "id":1, "name ": "Alice (updated)" }
-DELETE	/api/users/:id	Delete a user by ID	id (path)	204 No Content
-POST	/api/auth/login	Authenticate (login)	username, password (body)	{ "token": "<JWT Token>" }
-This table format (with Method, Endpoint, Description, etc.) is a common practice for documenting REST APIs[13].
-Authentication
-This API uses token-based authentication. Clients must first log in (for example, POST /api/auth/login) to receive a JSON Web Token. Subsequent requests to protected endpoints should include the token in the Authorization header, for example:
+# 🔧 **Tech Stack**
 
-Authorization: Bearer <your_JWT_token_here>
-(This follows the Bearer token scheme in HTTP authentication[3]. API keys, if used, are typically also sent in headers[4].)
-Example Usage
-Provide example requests to demonstrate how to use the API[14]. For instance, using curl:
-# Create a new user
-curl -X POST https://<-- YOUR_URL_HERE -->/api/users \
-  -H "Content-Type: application/json" \
-  -d '{"name": "Alice", "email": "alice@example.com"}'
-# Get all users (with auth token)
-curl -X GET https://<-- YOUR_URL_HERE -->/api/users \
-  -H "Authorization: Bearer < YOUR_JWT_TOKEN>."
-These examples show how to call the endpoints with appropriate HTTP methods, headers, and request bodies.
-Contributing
-Contributions are welcome! Please see CONTRIBUTING.md for detailed guidelines. In general:
-- Fork the repository and create a new branch (git checkout -b feature/YourFeature).
-- Commit your changes with a clear message.
-- Push to your fork and open a pull request on GitHub.
-A typical README invites contributors and outlines steps to fork, branch, and submit PRs[15].
-License
-Specify your project’s license. For example: “This project is licensed under the MIT License” (see LICENSE file)[16]. Replace with your chosen license type (e.g., MIT, GPL) as appropriate.
-Sources: Guidance on README structure and API documentation is based on best practices and examples from external references[1][2][3][16].
-________________________________________
+| Component  | Technology                          |
+| ---------- | ----------------------------------- |
+| Backend    | Django, Django REST Framework       |
+| Auth       | JWT (djangorestframework-simplejwt) |
+| Database   | PostgreSQL (Render)                 |
+| Deployment | Render Web Service                  |
+
+---
+
+# ⚙️ **Setup & Installation**
+
+## **1️⃣ Clone the Repository**
+
+```bash
+git clone https://github.com/username/repository.git
+cd backend
+```
+
+## **2️⃣ Create Virtual Environment**
+
+```bash
+python -m venv venv
+source venv/bin/activate        # Linux/Mac
+venv\Scripts\activate           # Windows
+```
+
+## **3️⃣ Install Dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+## **4️⃣ Apply Migrations**
+
+```bash
+python manage.py migrate
+```
+
+## **5️⃣ Create Superuser**
+
+```bash
+python manage.py createsuperuser
+```
+
+## **6️⃣ Run Locally**
+
+```bash
+python manage.py runserver
+```
+
+---
+
+# 🌍 **Environment Variables (`.env`)**
+
+Create a `.env` file:
+
+```
+DEBUG=True
+SECRET_KEY=your-secret-key
+DATABASE_URL=your-render-postgres-url
+ALLOWED_HOSTS=.onrender.com,localhost,127.0.0.1
+
+#Here I just used ALGORIA
+ALGOLIA_APP_ID='Your ID'
+ALGOLIA_API_KEY='Your Algolia key if you have one'
+```
+
+
+# 🧪 **Main API Endpoints**
+
+## **📌 Authentication**
+
+| Method | Endpoint             | Description           |
+| ------ | -------------------- | --------------------- |
+| POST   | `/api/token/`   | Login and get JWT     |
+| POST   | `/api/token/refresh/` | Refresh the JWT token |
+
+---
+
+<p>Username: staff</p>
+<p>Password: Mumahanga</p>
+<p>This user is for testing. You can Create, Update, Read, and Delete. except the Data that created by <u><b>ADMIN</b></u>.</p>
+
+## **📌 Products / Items Example**
+
+| Method | Endpoint              | Description             |
+| ------ | --------------------- | ----------------------- |
+| GET    | `/api/products/`      | List all products       |
+| POST   | `/api/products/`      | Create a product        |
+| GET    | `/api/products/<id>/` | Retrieve single product |
+| PUT    | `/api/products/<id>/` | Update product          |
+| DELETE | `/api/products/<id>/` | Delete product          |
+
+---
+
+## **📌 Search Endpoint**
+
+| Method | Endpoint              | Description             |
+| ------ | --------------------- | ----------------------- |
+| GET    | `/api/search/?q=text` | Search products or data |
+
+---
+
+## **📌 API Documentaion / Items Example**
+
+| Method | Endpoint              | Description             |
+| ------ | --------------------- | ----------------------- |
+| GET    | `api/api/schema/swagger-ui/`      | APO Documentation       |
+| GET   | `/api/api/schema/redoc/`      | Redoc        |
+| GET    | `api/api/schema/` | Schema ymal |
+
+
+# 🛠 **How It Works**
+
+### **1. Client sends a request**
+
+The frontend or Postman sends HTTP requests to the `/api/...` endpoints.
+
+### **2. Views process logic**
+
+Django views handle CRUD operations using DRF serializers.
+
+### **3. Database interaction**
+
+If using Render PostgreSQL, the API reads/writes through `DATABASE_URL`.
+
+### **4. Response returned**
+
+JSON responses are structured like:
+
+```json
+{
+  "owner": {
+      "username": "toon",
+      "id": 1
+  },
+  "url": "https://rest-api-deploy-zotq.onrender.com/api/products/1/",
+  "pk": 1,
+  "title": "Nike shoes",
+  "content": "Best shoes in 2025",
+  "price": "600.00",
+  "sale_price": "480.00",
+  "public": true
+},
+```
+
+---
+
+# 🧭 **Using the API With Postman**
+
+1. Open Postman
+2. Enter your Render URL:
+   `https://your-app-name.onrender.com/api/products/`
+3. For protected routes:
+
+   * Add a **Bearer Token**
+   * Paste JWT from `/api/token/`
+
+---
+
+
+# 📄 **Common Django Commands**
+
+```bash
+python manage.py runserver
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+pip freeze > requirements.txt
+```
+
+---
+
+# 🤝 **Contributing**
+
+Pull requests are welcome!
+For major changes, please open an issue first.
+
+---
+
+# 📝 **License**
+
+MIT License — Free to use.
+
+---
