@@ -1,6 +1,16 @@
 PRODUCT LIST SAMPLE REST API
 “My API is the first api i built and deployed, which was very enjoyable to learn from, and practices that improved my skills in REST API and Django as well.”
 
+project/
+│── cfehome/
+│── api/
+│    ├── views.py
+│    ├── urls.py
+│    ├── serializers.py
+│── requirements.txt
+│── manage.py
+│── README.md
+
 Live URL
 Base URL where the API is hosted on Render. For example: https://rest-api-deploy-zotq.onrender.com/api/products/
 
